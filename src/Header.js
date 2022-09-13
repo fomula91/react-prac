@@ -4,8 +4,10 @@ import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
 import StorefrontIcon from "@material-ui/icons/Storefront";
 import SearchIcon from "@material-ui/icons/Search";
 import { Link } from "react-router-dom";
+import { useStateValue } from "./StateProvider";
 
 function Header(props) {
+  const [{ basket }, dispatch] = useStateValue();
   return (
     <div className="header">
       <Link to="" style={{ textDecoration: "none" }}>
@@ -19,11 +21,15 @@ function Header(props) {
         <input type="text" className="header__searchInput" />
         <SearchIcon className="header__searchIcon " />
       </div>
+
       <div className="header__nav">
-        <div className="nav__item">
-          <span className="nav__itemLineOne">Hello guest</span>
-          <span className="nav__itemLineTwo">Sgin In</span>
-        </div>
+        <Link to="/login" style={{ textDecoration: "none" }}>
+          <div className="nav__item">
+            <span className="nav__itemLineOne">Hello guest</span>
+            <span className="nav__itemLineTwo">Sgin In</span>
+          </div>
+        </Link>
+
         <div className="nav__item">
           <span className="nav__itemLineOne">Your</span>
           <span className="nav__itemLineTwo">Shop</span>
@@ -32,7 +38,9 @@ function Header(props) {
           <div className="nav__item">
             <ShoppingBasketIcon fontSize="large" className="itemBasket" />
 
-            <span className="nav__itemLineTwo nav__basketCount">0</span>
+            <span className="nav__itemLineTwo nav__basketCount">
+              {basket.length}
+            </span>
           </div>
         </Link>
       </div>
